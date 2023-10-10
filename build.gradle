@@ -7,7 +7,7 @@ plugins {
 sonar {
     properties {
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.projectKey", "FieldRaffle"
+        property "sonar.projectKey", "IsmaTor_HeadsAndTails"
         property "sonar.organization", "ismator"
     }
 }
