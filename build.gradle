@@ -2,6 +2,64 @@ plugins {
     id 'com.android.application' version '8.1.2' apply false
     id 'com.android.library' version '8.1.2' apply false
     id "org.sonarqube" version "4.4.1.3373"
+    id "jacoco"
+    id 'java'
+}
+
+dependencies {
+    // Agrega las dependencias de tus pruebas unitarias si es necesario
+    testImplementation 'junit:junit:4.13'
+}
+
+
+
+
+tasks.register('customJacocoTestReport', JacocoReport) {
+    dependsOn = ["testDebugUnitTest", "createDebugCoverageReport"]
+
+    reports {
+        xml.required = true
+    }
+
+    sourceDirectories.from(files("src/main/java"))
+    classDirectories.from(files("${buildDir}/intermediates/classes/debug"))
+    executionData.from(fileTree("$buildDir").include("jacoco/testDebugUnitTest.exec", "outputs/code-coverage/connected/*coverage.ec"))
+}
+
+tasks.register('customJacocoCoverageVerification', JacocoCoverageVerification) {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.5
+            }
+        }
+    }
+}
+
+
+
+customJacocoTestReport.dependsOn customJacocoCoverageVerification
+
+tasks.register('testDebugUnitTest', Test) {
+    description = 'Ejecutar pruebas unitarias en modo debug para la compilación Debug'
+
+    // Configuración específica para las pruebas unitarias en modo debug
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+
+    // Especifica las clases de pruebas que deseas ejecutar, por ejemplo:
+    include '**/*UnitTest.class'
+
+    // Configura las rutas de las clases y recursos de prueba
+    testClassesDirs = fileTree(dir: "${buildDir}/intermediates/classes/debug")
+    classpath = files()
+
+    // Configura el destino de los informes de pruebas, como HTML o XML
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
 }
 
 sonar {
