@@ -3,9 +3,25 @@ plugins {
     id 'jacoco'
 }
 
-jacoco {
-    toolVersion = '0.8.8'
-    reportsDirectory = file("$buildDir/reports/jacoco")
+tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn('testDebugUnitTest', 'createDebugCoverageReport')
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
+
 }
 
 android {
@@ -47,19 +63,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     jacoco.includeNoLocationClasses = true
+    unitTests.returnDefaultValues = true
 }
 
-tasks.withType(JacocoReport) {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-//sonar
-sonarqube {
+sonar {
     properties {
         property "sonar.coverage.jacoco.xmlReportPaths", "${jacoco.reportsDirectory}/jacoco.xml"
     }
 }
+
