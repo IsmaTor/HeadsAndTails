@@ -12,8 +12,10 @@ public class MainActivityTest {
         int num1 = 1;
         int num2 = 1;
         int num3 = 0;
+        int num4 = 1;
 
         assertEquals(num1, num2);
+        assertEquals(num1, num4);
 
         assertNotEquals(num1, num3);
     }
