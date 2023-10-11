@@ -47,6 +47,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
@@ -57,9 +58,9 @@ tasks.withType(JacocoReport) {
         html.enabled true
     }
 }
-//sonar
+
 sonarqube {
     properties {
         property "sonar.coverage.jacoco.xmlReportPaths", "${jacoco.reportsDirectory}/jacoco.xml"
     }
-}
+
