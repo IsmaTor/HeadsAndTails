@@ -6,6 +6,7 @@ plugins {
     id 'java'
 }
 
+//dependencies
 dependencies {
     // Agrega las dependencias de tus pruebas unitarias si es necesario
     testImplementation 'junit:junit:4.13'
