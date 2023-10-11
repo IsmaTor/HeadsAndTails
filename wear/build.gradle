@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+    apply from: "$project.rootDir/jacoco.gradle"
+
     namespace 'ismaApp.tortosa.fieldraffle'
     compileSdk 33
 
@@ -41,3 +43,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 }
+
