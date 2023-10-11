@@ -1,10 +1,17 @@
 plugins {
     id 'com.android.application'
+    id 'jacoco'
 }
 
-android {
-    apply from: "$project.rootDir/jacoco.gradle"
+jacoco {
+    toolVersion = '0.8.8'
+    reportsDirectory = file("$buildDir/reports/jacoco")
+}
 
+
+
+
+android {
     namespace 'ismaApp.tortosa.fieldraffle'
     compileSdk 33
 
@@ -41,6 +48,27 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
 }
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+tasks.withType(JacocoReport) {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.coverage.jacoco.xmlReportPaths", "${jacoco.reportsDirectory}/jacoco.xml"
+    }
+}
+
+
+
+
+
 
