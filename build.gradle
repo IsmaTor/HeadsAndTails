@@ -1,11 +1,11 @@
 buildscript {
+    ext.kotlin_version = "1.5.31"  // Versión de Kotlin compatible con Gradle 8
     repositories {
         google()
         mavenCentral()
     }
-
     dependencies {
-        classpath "com.android.tools.build:gradle:8.1.2"
+        classpath 'com.android.tools.build:gradle:7.0.4'  // Versión de Gradle 7 compatible con Kotlin 1.5
     }
 }
 
@@ -15,7 +15,7 @@ plugins {
     id "org.sonarqube" version "4.4.1.3373"
 }
 
-sonarqube {
+sonar {
     properties {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.projectKey", "IsmaTor_HeadsAndTails"
