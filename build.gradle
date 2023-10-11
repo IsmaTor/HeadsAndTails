@@ -1,7 +1,23 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.1.2"
+        classpath "org.jacoco:org.jacoco.core:0.8.6"
+    }
+}
+
 plugins {
     id 'com.android.application' version '8.1.2' apply false
     id 'com.android.library' version '8.1.2' apply false
     id "org.sonarqube" version "4.4.1.3373"
+}
+
+allprojects {
+    apply plugin: 'jacoco'
 }
 
 sonar {
@@ -11,3 +27,5 @@ sonar {
         property "sonar.organization", "ismator"
     }
 }
+
+
