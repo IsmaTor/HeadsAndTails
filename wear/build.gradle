@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
 }
 
-//android
 android {
     namespace 'ismaApp.tortosa.fieldraffle'
     compileSdk 33
