@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         startImageChangeSequence();
     }
 
-    private void startImageChangeSequence() {
+    public void startImageChangeSequence() {
         final Handler handler = new Handler(Looper.getMainLooper());
 
         ImageChange imageChange = new ImageChange(coinImageView);
