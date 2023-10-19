@@ -5,7 +5,7 @@ import ismaApp.tortosa.fieldraffle.R;
 public class CoinEntity {
     //Attributes
     private int currentImageIndex = 0; //índice de la imagen actual.
-    private int[] imageResources = {
+    private final int[] imageResources = {
             R.drawable.heads, R.drawable.headsint, R.drawable.tails, R.drawable.tailsint,
             R.drawable.heads, R.drawable.headsint, R.drawable.tails, R.drawable.tailsint,
             R.drawable.heads, R.drawable.headsint, R.drawable.tails, R.drawable.tailsint

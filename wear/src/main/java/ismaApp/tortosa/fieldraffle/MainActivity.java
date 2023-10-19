@@ -3,11 +3,14 @@ package ismaApp.tortosa.fieldraffle;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.Random;
 
 import ismaApp.tortosa.fieldraffle.model.CoinEntity;
 
@@ -17,6 +20,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button startButton;
     private boolean lotteryStarted = false;
     private CoinEntity coinEntity;
+    private final Random random = new Random();
 
     @Override //inicialización incial de la aplicación
     public void onCreate(Bundle savedInstanceState){
@@ -39,7 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startFlipAnimation();
         } else {
             coinImageView.setVisibility(View.INVISIBLE);
-            startButton.setText("START");
+            startButton.setText(getText(R.string.start));
             lotteryStarted = false;
         }
     }
@@ -52,7 +56,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void startImageChangeSequence(){
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -61,11 +65,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(imageResource != -1){
                     coinImageView.setImageResource(imageResource);
                     coinEntity.nextImage();
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 300);
                 } else {
                     int heads = 1;
-                    int tails = 2;
-                    int lottery = (int) (Math.random() * 2 + 1);
+                    int lottery = random.nextInt(2) + 1;
 
                     if(lottery == heads){
                         coinImageView.setImageResource(R.drawable.heads);
@@ -76,7 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     }
 
                     handler.postDelayed(() -> {
-                        startButton.setText("RESET");
+                        startButton.setText(getText(R.string.reset));
                         startButton.setVisibility(View.VISIBLE);
                         startButton.setEnabled(true);
                     }, 1000);

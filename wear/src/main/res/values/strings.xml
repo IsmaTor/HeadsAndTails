@@ -6,4 +6,5 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="start">START</string>
+    <string name="reset">RESET</string>
 </resources>
