@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Random;
 
 import ismaApp.tortosa.fieldraffle.model.CoinEntity;
+import ismaApp.tortosa.fieldraffle.model.ImageChange;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     //Attributes
@@ -55,27 +54,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
         startImageChangeSequence();
     }
 
-    private void startImageChangeSequence(){
+    private void startImageChangeSequence() {
         final Handler handler = new Handler(Looper.getMainLooper());
+
+        ImageChange imageChange = new ImageChange(coinImageView);
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 int imageResource = coinEntity.getCurrentImageResource();
-                if(imageResource != -1){
-                    coinImageView.setImageResource(imageResource);
+                if (imageResource != -1) {
+                    imageChange.setImageResource(imageResource);
                     coinEntity.nextImage();
                     handler.postDelayed(this, 300);
                 } else {
                     int heads = 1;
                     int lottery = random.nextInt(2) + 1;
 
-                    if(lottery == heads){
-                        coinImageView.setImageResource(R.drawable.heads);
-                        showResult("Heads");
+                    if (lottery == heads) {
+                        imageChange.setImageResource(R.drawable.heads);
+                        imageChange.showResult("Heads");
                     } else {
-                        coinImageView.setImageResource(R.drawable.tails);
-                        showResult("Tails");
+                        imageChange.setImageResource(R.drawable.tails);
+                        imageChange.showResult("Tails");
                     }
 
                     handler.postDelayed(() -> {
@@ -86,13 +87,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         }, 0);
-    }
-
-    //muestra el resultado final en la parte de abajo.
-    private void showResult(String message){
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
-        toast.show();
     }
 
 }
