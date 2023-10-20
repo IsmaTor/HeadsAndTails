@@ -7,9 +7,11 @@ import android.widget.Toast;
 public class ImageChange implements ImageChangeI{
 
     private ImageView coinImageView;
+    private ToastHelper toastHelper;
 
-    public ImageChange(ImageView coinImageView) {
+    public ImageChange(ImageView coinImageView, ToastHelper toastHelper) {
         this.coinImageView = coinImageView;
+        this.toastHelper = toastHelper;
     }
 
     @Override
@@ -19,8 +21,6 @@ public class ImageChange implements ImageChangeI{
 
     @Override
     public void showResult(String message) {
-        Toast toast = Toast.makeText(coinImageView.getContext(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
-        toast.show();
+        toastHelper.showToast(coinImageView.getContext(), message);
     }
 }

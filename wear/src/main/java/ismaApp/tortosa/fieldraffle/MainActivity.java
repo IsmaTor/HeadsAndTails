@@ -12,6 +12,7 @@ import java.util.Random;
 
 import ismaApp.tortosa.fieldraffle.model.CoinEntity;
 import ismaApp.tortosa.fieldraffle.model.ImageChange;
+import ismaApp.tortosa.fieldraffle.model.ToastHelper;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     //Attributes
@@ -57,7 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void startImageChangeSequence() {
         final Handler handler = new Handler(Looper.getMainLooper());
 
-        ImageChange imageChange = new ImageChange(coinImageView);
+        ImageChange imageChange = new ImageChange(coinImageView, new ToastHelper());
 
         handler.postDelayed(new Runnable() {
             @Override
