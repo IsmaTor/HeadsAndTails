@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import ismaApp.tortosa.fieldraffle.model.CoinEntity;
 import ismaApp.tortosa.fieldraffle.model.ImageChange;
@@ -20,7 +20,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button startButton;
     private boolean lotteryStarted = false;
     private CoinEntity coinEntity;
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
 
     @Override //inicialización incial de la aplicación
     public void onCreate(Bundle savedInstanceState){
