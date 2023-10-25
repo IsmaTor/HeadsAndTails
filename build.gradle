@@ -4,18 +4,10 @@ plugins {
     id "org.sonarqube" version "4.4.1.3373"
 }
 
-apply plugin: 'jacoco'
-
-jacoco {
-    toolVersion = "0.8.7"  // Utiliza la versión más reciente de JaCoCo
-}
-
-sonarqube {
+sonar {
     properties {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.projectKey", "IsmaTor_HeadsAndTails"
         property "sonar.organization", "ismator"
-        property "sonar.coverage.exclusions", "**/*Test*"
-        property "sonar.coverage.targets", "70%"
     }
 }
