@@ -3,13 +3,16 @@ package ismaApp.tortosa.fieldraffle;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import java.security.SecureRandom;
 
 import ismaApp.tortosa.fieldraffle.model.CoinEntity;
+import ismaApp.tortosa.fieldraffle.model.ImageChange;
+import ismaApp.tortosa.fieldraffle.model.ToastHelper;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     //Attributes
@@ -17,6 +20,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button startButton;
     private boolean lotteryStarted = false;
     private CoinEntity coinEntity;
+    private final SecureRandom random = new SecureRandom();
 
     @Override //inicialización incial de la aplicación
     public void onCreate(Bundle savedInstanceState){
@@ -39,7 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startFlipAnimation();
         } else {
             coinImageView.setVisibility(View.INVISIBLE);
-            startButton.setText("START");
+            startButton.setText(getText(R.string.start));
             lotteryStarted = false;
         }
     }
@@ -51,45 +55,39 @@ public class MainActivity extends Activity implements View.OnClickListener {
         startImageChangeSequence();
     }
 
-    private void startImageChangeSequence(){
-        final Handler handler = new Handler();
+    public void startImageChangeSequence() {
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        ImageChange imageChange = new ImageChange(coinImageView, new ToastHelper());
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 int imageResource = coinEntity.getCurrentImageResource();
-                if(imageResource != -1){
-                    coinImageView.setImageResource(imageResource);
+                if (imageResource != -1) {
+                    imageChange.setImageResource(imageResource);
                     coinEntity.nextImage();
-                    handler.postDelayed(this, 100);
+                    handler.postDelayed(this, 300);
                 } else {
                     int heads = 1;
-                    int tails = 2;
-                    int lottery = (int) (Math.random() * 2 + 1);
+                    int lottery = random.nextInt(2) + 1;
 
-                    if(lottery == heads){
-                        coinImageView.setImageResource(R.drawable.heads);
-                        showResult("Heads");
+                    if (lottery == heads) {
+                        imageChange.setImageResource(R.drawable.heads);
+                        imageChange.showResult("Field");
                     } else {
-                        coinImageView.setImageResource(R.drawable.tails);
-                        showResult("Tails");
+                        imageChange.setImageResource(R.drawable.tails);
+                        imageChange.showResult("Ball");
                     }
 
                     handler.postDelayed(() -> {
-                        startButton.setText("RESET");
+                        startButton.setText(getText(R.string.reset));
                         startButton.setVisibility(View.VISIBLE);
                         startButton.setEnabled(true);
                     }, 1000);
                 }
             }
         }, 0);
-    }
-
-    //muestra el resultado final en la parte de abajo.
-    private void showResult(String message){
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
-        toast.show();
     }
 
 }
