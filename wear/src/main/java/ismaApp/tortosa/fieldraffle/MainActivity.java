@@ -74,10 +74,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     if (lottery == heads) {
                         imageChange.setImageResource(R.drawable.heads);
-                        imageChange.showResult("Heads");
+                        imageChange.showResult("Field");
                     } else {
                         imageChange.setImageResource(R.drawable.tails);
-                        imageChange.showResult("Tails");
+                        imageChange.showResult("Ball");
                     }
 
                     handler.postDelayed(() -> {

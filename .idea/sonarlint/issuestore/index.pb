@@ -19,3 +19,7 @@ v
 Fwear/src/main/java/ismaApp/tortosa/fieldraffle/model/ImageChangeI.java,4\1\4152e4623967edda4642080e651fb0f1a18787a3
 u
 Ewear/src/main/java/ismaApp/tortosa/fieldraffle/model/ImageChange.java,8\7\873e48c9d64aec220e9220b41166c302c2dc6fba
+v
+Fwear/src/main/java/ismaApp/tortosa/fieldraffle/model/ToastHelperI.java,7\b\7b62f26be9eb35d31e61729cf7e6208b4c5a76a4
+u
+Ewear/src/main/java/ismaApp/tortosa/fieldraffle/model/ToastHelper.java,0\0\00fcf5046e17581e49098331a132eb97bfef94f4

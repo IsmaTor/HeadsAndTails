@@ -1,8 +1,6 @@
 package ismaApp.tortosa.fieldraffle.model;
 
-import android.view.Gravity;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class ImageChange implements ImageChangeI{
 
